@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Scheduler</title>
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #f9f9f9;
+            --text-color: #333;
+            --accent-color: #ff5722;
+            --shadow-color: rgba(0, 0, 0, 0.2);
+            --border-radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(120deg, var(--secondary-color), #e3e3e3);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background: var(--primary-color);
+            color: white;
+            padding: 1.5rem 0;
+            text-align: center;
+            box-shadow: 0 4px 8px var(--shadow-color);
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 1.5rem;
+        }
+
+        .schedule-form {
+            background: white;
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 10px var(--shadow-color);
+        }
+
+        .schedule-form h2 {
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: var(--text-color);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group button {
+            width: 100%;
+            padding: 0.9rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 5px var(--primary-color);
+        }
+
+        .form-group button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .form-group button:hover {
+            background: var(--accent-color);
+        }
+
+        .schedule-list {
+            margin-top: 2.5rem;
+        }
+
+        .schedule-list h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .schedule-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.2rem;
+            box-shadow: 0 4px 8px var(--shadow-color);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .schedule-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px var(--shadow-color);
+        }
+
+        .schedule-item span {
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .schedule-item p {
+            margin: 0.5rem 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Class Scheduler</h1>
+    </header>
+
+    <div class="container">
+        <div class="schedule-form">
+            <h2>Add a Class</h2>
+            <form id="classForm">
+                <div class="form-group">
+                    <label for="className">Class Name</label>
+                    <input type="text" id="className" placeholder="Enter class name" required>
+                </div>
+                <div class="form-group">
+                    <label for="classDate">Date</label>
+                    <input type="date" id="classDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="classTime">Time</label>
+                    <input type="time" id="classTime" required>
+                </div>
+                <div class="form-group">
+                    <label for="classInstructor">Instructor</label>
+                    <input type="text" id="classInstructor" placeholder="Enter instructor name" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Add Class</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="schedule-list" id="scheduleList">
+            <h3>Scheduled Classes</h3>
+            <!-- Schedule items will be dynamically added here -->
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('classForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const className = document.getElementById('className').value;
+            const classDate = document.getElementById('classDate').value;
+            const classTime = document.getElementById('classTime').value;
+            const classInstructor = document.getElementById('classInstructor').value;
+
+            const scheduleList = document.getElementById('scheduleList');
+
+            const scheduleItem = document.createElement('div');
+            scheduleItem.classList.add('schedule-item');
+            scheduleItem.innerHTML = `
+                <p><span>Class:</span> ${className}</p>
+                <p><span>Date:</span> ${classDate}</p>
+                <p><span>Time:</span> ${classTime}</p>
+                <p><span>Instructor:</span> ${classInstructor}</p>
+            `;
+
+            scheduleList.appendChild(scheduleItem);
+
+            // Reset form
+            document.getElementById('classForm').reset();
+        });
+    </script>
+</body>
+</html>
